@@ -22,4 +22,10 @@ test:
 
 production:
   <<: *default
-  database: storage/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: clapton_production
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: clapton
+  password: <%= ENV['CLAPTON_DATABASE_PASSWORD'] %>
+  host: localhost

@@ -72,3 +72,10 @@ group :test do
 end
 
 gem "clapton", "~> 0.0.17"
+
+group :production do
+  gem "pg"
+  gem "redis"
+end
+
+gem "dockerfile-rails", ">= 1.6", :group => :development
