@@ -70,3 +70,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "clapton", "~> 0.0.17"
