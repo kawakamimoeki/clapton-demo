@@ -100,7 +100,7 @@ class TaskListComponent < Clapton::Component
   def render
     box = c(:box)
     @state.tasks.each do |task|
-      box.add(TaskItemComponent.new(id: task[:id], title: task[:title], due_date: task[:due_date], is_done: task[:is_done]))
+      box.add(TaskItemComponent.new(id: task[:id], title: task[:title], is_done: task[:is_done]))
     end
     add_button = c(:button)
     add_button.add(c(:text, "Add Task"))
@@ -123,8 +123,8 @@ class TaskListState < Clapton::State
   attribute :tasks
 
   def add_task(params)
-    task = Task.create(title: "New Task", due_date: Date.today, is_done: false)
-    self.tasks << { id: task.id, title: task.title, due: task.due_date, done: task.is_done }
+    task = Task.create(title: "New Task", is_done: false)
+    self.tasks << { id: task.id, title: task.title, is_done: task.is_done }
   end
 
   def toggle_done(params)
@@ -142,14 +142,8 @@ class TaskListState < Clapton::State
     self.tasks.find { |t| t[:id] == task.id }[:title] = task.title
   end
 
-  def update_due(params)
-    task = Task.find(params[:id])
-    task.update(due_date: params[:due_date])
-    self.tasks.find { |t| t[:id] == params[:id] }[:due_date] = task.due_date
-  end
-
   def add_empty_task(params)
-    self.tasks << { id: nil, title: "", due_date: "", is_done: false }
+    self.tasks << { id: nil, title: "", is_done: false }
   end
 end
 </code></pre>
@@ -175,7 +169,7 @@ class TasksController < ApplicationController
         :TaskList,
         {
           tasks: @tasks.map do |task|
-            { title: task.title, due_date: task.due_date, is_done: task.is_done }
+            { id: task.id, title: task.title, is_done: task.is_done }
           end
         }
       ],
