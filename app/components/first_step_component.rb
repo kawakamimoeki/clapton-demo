@@ -185,7 +185,7 @@ end</code></pre>
       .add(
         c(:embed, <<~HTML
 <pre><code class="language-ruby"><%# app/views/tasks/index.html.erb %&gt;
-&lt;%= clapton_tag TaskListComponent, tasks: @tasks %&gt;</code></pre>
+&lt;%= clapton_tag %&gt;</code></pre>
         HTML
       ))
   end
